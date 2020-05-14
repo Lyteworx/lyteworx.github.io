@@ -1,11 +1,8 @@
-#%%
+#!/usr/bin/env python
 
 import numpy as np
 import us
 import pandas as pd
-import os
-import subprocess
-from pathlib import Path
 import plotly.express as px
 
 us_confirmed_path = 'https://raw.githubusercontent.com/CSSEGISandData/COVID-19/master/csse_covid_19_data/csse_covid_19_time_series/time_series_covid19_confirmed_US.csv'
@@ -53,11 +50,11 @@ fig = px.scatter(
     category_orders={'Day':days}
 )
 fig.update_layout(width=1200)
-fig.write_html("../charts/united_states_bubble_chart.html")
+fig.write_html("charts/united_states_bubble_chart.html")
 
 #%%
 
-pop = pd.read_csv('../data/us_population.csv').set_index('state')
+pop = pd.read_csv('data/us_population.csv').set_index('state')
 max_confirmed = list()
 for s in scatter_data.State.unique():
     max_confirmed.append(scatter_data.Confirmed[scatter_data.State == s].max())
@@ -100,7 +97,7 @@ fig = px.choropleth(
           f'JHU CSSE COVID-19 Dataset</a>'
     )
 
-fig.write_html('../charts/united_states_confirmed_cases_map.html')
+fig.write_html('charts/united_states_confirmed_cases_map.html')
 
 #%%
 
@@ -124,7 +121,7 @@ fig = px.choropleth(
           f'JHU CSSE COVID-19 Dataset</a>'
     )
 
-fig.write_html('../charts/united_states_confirmed_cases_per_million_map.html')
+fig.write_html('charts/united_states_confirmed_cases_per_million_map.html')
 
 #%% growth rate
 
@@ -181,7 +178,7 @@ fig = px.choropleth(
           f'JHU CSSE COVID-19 Dataset</a>'
     )
 
-fig.write_html('../charts/united_states_confirmed_cases_growth_rate_map.html')
+fig.write_html('charts/united_states_confirmed_cases_growth_rate_map.html')
 
 #%%
 
@@ -209,7 +206,7 @@ fig.update_layout(
         title='Rolling Growth Rate'
         )
     )
-fig.write_html('../charts/united_states_confirmed_cases_rolling_14-Day_average_growth_rate_map.html')
+fig.write_html('charts/united_states_confirmed_cases_rolling_14-Day_average_growth_rate_map.html')
 
 #%%
 

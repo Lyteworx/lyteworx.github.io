@@ -1,8 +1,7 @@
-# All the imports in one place
+#!/usr/bin/env python
+
 import numpy as np
 import pandas as pd
-import os
-import subprocess
 import pycountry
 import plotly.express as px
 
@@ -114,7 +113,7 @@ fig = px.choropleth(
           f'Source:<a href="https://github.com/CSSEGISandData/COVID-19/tree/master/csse_covid_19_data">'
           f'JHU CSSE COVID-19 Dataset</a>'
     )
-fig.write_html('../charts/global_confirmed_cases_map.html')
+fig.write_html('charts/global_confirmed_cases_map.html')
 
 days = df.Date.unique()
 fig = px.scatter(
@@ -133,7 +132,7 @@ fig = px.scatter(
     category_orders={'Day':days}
 )
 fig.update_layout(width=1200)
-fig.write_html("../charts/global_confirmed_cases_bubble_chart.html")
+fig.write_html("charts/global_confirmed_cases_bubble_chart.html")
 
 
 fig = px.scatter(
@@ -154,7 +153,7 @@ fig = px.scatter(
     category_orders={'Day':days}
 )
 fig.update_layout(width=1200)
-fig.write_html("../charts/global_confirmed_cases_bubble_chart_per_continent.html")
+fig.write_html("charts/global_confirmed_cases_bubble_chart_per_continent.html")
 
 def split_by_state(country, df):
     df = df[df.Country == country].copy()
@@ -185,7 +184,7 @@ for d in df_c:
 
 sdn = pd.concat(new_dfs, ignore_index=True)
 sdn.reset_index(drop=True)
-sdn.to_csv('../data/global_confirmed_growth_rate.csv', index=False)
+sdn.to_csv('data/global_confirmed_growth_rate.csv', index=False)
 
 fig = px.choropleth(
     sdn[(sdn.Date >= '2020-01-01') &
@@ -210,11 +209,11 @@ fig.update_layout(
         title='Rolling Growth Rate'
         )
     )
-fig.write_html('../charts/global_confirmed_cases_rolling_14-Day_average_growth_rate_map.html')
+fig.write_html('charts/global_confirmed_cases_rolling_14-Day_average_growth_rate_map.html')
 
 sdn[['Date', 'Confirmed', 'today', 'yesterday']][sdn.Country == 'US'].tail(20)
 # little data backup never hurt anyone...
-df.to_csv('../data/scatter_global.csv', index=False)
+df.to_csv('data/scatter_global.csv', index=False)
 
 df = pd.read_csv('https://covid.ourworldindata.org/data/owid-covid-data.csv')
 
@@ -267,4 +266,4 @@ fig.update_yaxes(title_text="New Cases per Test",row=1, col=2)
 fig.update_yaxes(title_text="New Cases per Test",secondary_y=True, row=3, col=1)
 
 
-fig.write_html('../charts/united_states_cases_per_test.html')
+fig.write_html('charts/united_states_cases_per_test.html')
