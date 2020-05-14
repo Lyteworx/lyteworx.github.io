@@ -11,24 +11,10 @@ from pathlib import Path
 # assumes git is installed
 # assumes you are storing data in parent directory
 
-os.chdir('../data/COVID-19')
-cmd = ['git', 'pull', 'https://github.com/CSSEGISandData/COVID-19.git']
-out = subprocess.run(cmd, stdout=subprocess.PIPE)
-print(out.stdout.decode())
-
-
-gl_confirmed_path = Path().joinpath('csse_covid_19_data',
-                            'csse_covid_19_time_series',
-                            'time_series_covid19_confirmed_global.csv')
-
-gl_death_path = Path().joinpath('csse_covid_19_data',
-                            'csse_covid_19_time_series',
-                            'time_series_covid19_deaths_global.csv')
-
+gl_confirmed_path = 'https://raw.githubusercontent.com/CSSEGISandData/COVID-19/master/csse_covid_19_data/csse_covid_19_time_series/time_series_covid19_confirmed_global.csv'
+gl_death_path = 'https://raw.githubusercontent.com/CSSEGISandData/COVID-19/master/csse_covid_19_data/csse_covid_19_time_series/time_series_covid19_deaths_global.csv'
 gl_c = pd.read_csv(gl_confirmed_path)
 gl_d = pd.read_csv(gl_death_path)
-
-os.chdir('../../scripts/')
 
 df_con = pd.read_csv('../data/country-and-continent-codes-list.csv')
 continent_map = dict()

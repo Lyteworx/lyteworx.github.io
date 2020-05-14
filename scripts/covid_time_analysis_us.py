@@ -8,34 +8,11 @@ import subprocess
 from pathlib import Path
 import plotly.express as px
 
-#%%
-
-# assumes git is installed
-# assumes you are storing data in parent directory
-
-os.chdir('../data')
-# cmd = ['git', 'pull', 'https://github.com/CSSEGISandData/COVID-19.git']
-cmd = ['git', 'submodule,' 'update', '--remote', '--merge']
-out = subprocess.run(cmd, stdout=subprocess.PIPE)
-print(out.stdout.decode())
-
-
-#%%
-
-us_confirmed_path = Path().joinpath('COVID-19/csse_covid_19_data',
-                            'csse_covid_19_time_series',
-                            'time_series_covid19_confirmed_US.csv')
-
-
-us_death_path = Path().joinpath('COVID-19/csse_covid_19_data',
-                            'csse_covid_19_time_series',
-                            'time_series_covid19_deaths_US.csv')
+us_confirmed_path = 'https://raw.githubusercontent.com/CSSEGISandData/COVID-19/master/csse_covid_19_data/csse_covid_19_time_series/time_series_covid19_confirmed_US.csv'
+us_death_path = 'https://raw.githubusercontent.com/CSSEGISandData/COVID-19/master/csse_covid_19_data/csse_covid_19_time_series/time_series_covid19_deaths_US.csv'
 
 us_c = pd.read_csv(us_confirmed_path)
 us_d = pd.read_csv(us_death_path)
-os.chdir('../scripts/')
-
-#%% restructure, and join data
 
 a = us_c.groupby('Province_State').sum().iloc[:, 5:].unstack().reset_index()
 b = us_d.groupby('Province_State').sum().iloc[:, 6:].unstack().reset_index()
@@ -43,8 +20,6 @@ scatter_data = pd.merge(a, b, on=['level_0', 'Province_State'])
 new_names = {'level_0': 'Date', 'Province_State': 'State',
              '0_x': 'Confirmed', '0_y': 'Deaths'}
 scatter_data = scatter_data.rename(columns=new_names)
-
-#%%
 
 scatter_data['Date'] = pd.to_datetime(scatter_data['Date']).dt.\
     strftime("%Y-%m-%d")
