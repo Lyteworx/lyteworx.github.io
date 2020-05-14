@@ -31,10 +31,13 @@ jobs:
         pip install -r requirements.txt
     - name: Run Global Time Series
       run: |
-        python scripts/covid_time_analysis_global.ipynb
+        python scripts/covid_time_analysis_global.py
     - name: Run United States Time Series
       run: |
-        python scripts/covid_time_analysis_us.ipynb
+        python scripts/covid_time_analysis_us.py
+    - name: Run Clinical
+      run: |
+        python scripts/clinical.py
     - name: Generate new index.html
       run: |
         python scripts/gen_index.py
