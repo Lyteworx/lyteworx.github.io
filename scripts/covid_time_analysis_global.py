@@ -16,7 +16,7 @@ gl_death_path = 'https://raw.githubusercontent.com/CSSEGISandData/COVID-19/maste
 gl_c = pd.read_csv(gl_confirmed_path)
 gl_d = pd.read_csv(gl_death_path)
 
-df_con = pd.read_csv('../data/country-and-continent-codes-list.csv')
+df_con = pd.read_csv('https://pkgstore.datahub.io/JohnSnowLabs/country-and-continent-codes-list/country-and-continent-codes-list-csv_csv/data/b7876b7f496677669644f3d1069d3121/country-and-continent-codes-list-csv_csv.csv')
 continent_map = dict()
 for row in df_con.itertuples():
     continent_map[row.Country_Name] = row.Continent_Name
