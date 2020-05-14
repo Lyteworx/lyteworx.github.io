@@ -23,8 +23,7 @@ jobs:
         python-version: ${{ matrix.python-version }}
 
     - name: Restore dependencies from cache
-    - uses: actions/cache@v1
-      if: startsWith(runner.os, 'Windows')
+      uses: actions/cache@v1
       with:
         path: ~\AppData\Local\pip\Cache
         key: ${{ runner.os }}-pip-${{ hashFiles('**/requirements.txt') }}
