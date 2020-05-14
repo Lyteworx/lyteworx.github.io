@@ -1,0 +1,6 @@
+[submodule "data/covidclinicaldata"]
+	path = data/covidclinicaldata
+	url = https://github.com/mdcollab/covidclinicaldata.git
+[submodule "data/COVID-19"]
+	path = data/COVID-19
+	url = https://github.com/CSSEGISandData/COVID-19.git
