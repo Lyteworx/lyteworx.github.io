@@ -35,9 +35,9 @@ jobs:
     - name: Run United States Time Series
       run: |
         python scripts/covid_time_analysis_us.py
-    - name: Run Clinical
-      run: |
-        python scripts/clinical.py
+#    - name: Run Clinical
+#      run: |
+#        python scripts/clinical.py
     - name: Generate new index.html
       run: |
         python scripts/gen_index.py

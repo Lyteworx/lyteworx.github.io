@@ -74,7 +74,7 @@ for s in scatter_data.State.unique():
     max_confirmed_norm.append(scatter_data['Confirmed per M']
                          [scatter_data.State == s].max())
 
-scatter_data.to_csv('../data/scatter_us.csv', index=False)
+scatter_data.to_csv('data/scatter_us.csv', index=False)
 
 #%%
 
@@ -154,7 +154,7 @@ for d in df_s:
 
 sdn = pd.concat(new_dfs, ignore_index=True)
 sdn.reset_index(drop=True)
-sdn.to_csv('../data/us_confirmed_growth_rate.csv', index=False)
+sdn.to_csv('data/us_confirmed_growth_rate.csv', index=False)
 
 #%%
 
