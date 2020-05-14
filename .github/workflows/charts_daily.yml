@@ -1,0 +1,40 @@
+# This is a basic workflow to help you get started with Actions
+
+name: charts
+
+# Controls when the action will run. Triggers the workflow on push or pull request
+# events but only for the master branch
+on:
+  schedule:
+    - cron: '0 3 * * *'
+
+# A workflow run is made up of one or more jobs that can run sequentially or in parallel
+jobs:
+  build_charts:
+    # The type of runner that the job will run on
+    runs-on: windows-latest
+    strategy:
+      matrix:
+        python-version: [3.5, 3.6, 3.7, 3.8]
+
+    # Steps represent a sequence of tasks that will be executed as part of the job
+    steps:
+    # Checks-out your repository under $GITHUB_WORKSPACE, so your job can access it
+    - uses: actions/checkout@v2
+    - name: Set up Python ${{ matrix.python-version }}
+      uses: actions/setup-python@v2
+      with:
+        python-version: ${{ matrix.python-version }}
+    - name: Install dependencies
+      run: |
+        python -m pip install --upgrade pip
+        pip install -r requirements.txt
+    - name: Run Global Time Series
+      run: |
+        python scripts/covid_time_analysis_global.ipynb
+    - name: Run United States Time Series
+      run: |
+        python scripts/covid_time_analysis_us.ipynb
+    - name: Generate new index.html
+      run: |
+        python scripts/gen_index.py
