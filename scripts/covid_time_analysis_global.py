@@ -6,17 +6,12 @@ import subprocess
 import pycountry
 import plotly.express as px
 
-from pathlib import Path
-
-# assumes git is installed
-# assumes you are storing data in parent directory
-
 gl_confirmed_path = 'https://raw.githubusercontent.com/CSSEGISandData/COVID-19/master/csse_covid_19_data/csse_covid_19_time_series/time_series_covid19_confirmed_global.csv'
 gl_death_path = 'https://raw.githubusercontent.com/CSSEGISandData/COVID-19/master/csse_covid_19_data/csse_covid_19_time_series/time_series_covid19_deaths_global.csv'
 gl_c = pd.read_csv(gl_confirmed_path)
 gl_d = pd.read_csv(gl_death_path)
 
-df_con = pd.read_csv('https://pkgstore.datahub.io/JohnSnowLabs/country-and-continent-codes-list/country-and-continent-codes-list-csv_csv/data/b7876b7f496677669644f3d1069d3121/country-and-continent-codes-list-csv_csv.csv')
+df_con = pd.read_csv('data/country-and-continent-codes-list.csv')
 continent_map = dict()
 for row in df_con.itertuples():
     continent_map[row.Country_Name] = row.Continent_Name
@@ -43,10 +38,13 @@ df = df.groupby(['Date', 'Country']).sum().reset_index() # combine duplicate row
 df['Death Rate'] = (df.Deaths / df.Confirmed * 100).fillna(1).round(2)
 idx = df[df['Death Rate'] == 0].index
 df.at[idx, 'Death Rate'] = 1  # controls the bubble size
+
+
 def find_continent(country):
     for key, value in continent_map.items():
         if country in key:
             return value
+
 
 df['Continent'] = df.Country.apply(find_continent)  # assign continent
 
