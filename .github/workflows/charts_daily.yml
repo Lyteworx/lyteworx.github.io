@@ -2,9 +2,9 @@
 
 name: Daily Charts Build
 
-on: [push]
-#  schedule:
-#    - cron: '0 3 * * *'
+on:
+  schedule:
+    - cron: '0 3 * * *'
 
 jobs:
   build_charts:
@@ -64,7 +64,7 @@ jobs:
         git config --local user.email "action@github.com"
         git config --local user.name "GitHub Action"
         git commit -m "Auto update" -a
-        
+
     - name: Push changes
       uses: ad-m/github-push-action@master
       with:
