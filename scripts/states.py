@@ -108,9 +108,9 @@ for state in merged.STATE.unique():
             if src:
                 src.remove()
             src = ax.annotate(f'Source: JHU CSSE COVID-19 Dataset, {str_date}',
-                        xy=(0.5, 0.2),
+                        xy=(0.05, 0.2),
                         xycoords='figure fraction',
-                        horizontalalignment='center',
+                        horizontalalignment='left',
                         verticalalignment='top',
                         fontsize=8, color='#555555')
             if cas:
@@ -132,3 +132,4 @@ for state in merged.STATE.unique():
                            ax=ax, edgecolor='0.8')
             logging.debug(f'Grabbing frame: {n + 1}')
             writer.grab_frame()
+    fig.close()
