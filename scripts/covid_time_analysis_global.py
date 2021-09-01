@@ -100,6 +100,7 @@ for c in df.Country.unique():
 q = 99
 cmax = int(np.percentile(max_list, q))
 
+print('Building Global choropleth chart...')
 fig = px.choropleth(
     df[df.Date >= '2020-02-14'],
     locations="iso_alpha_3",
@@ -116,6 +117,7 @@ fig = px.choropleth(
     )
 fig.write_html('charts/global_confirmed_cases_map.html')
 
+print('Building Global scatter plot...')
 days = df.Date.unique()
 fig = px.scatter(
     data_frame=df,
@@ -135,7 +137,7 @@ fig = px.scatter(
 fig.update_layout(width=1200)
 fig.write_html("charts/global_confirmed_cases_bubble_chart.html")
 
-
+print('Building Global scatter plot (continent)...')
 fig = px.scatter(
     data_frame=df,
     x='Confirmed',
@@ -187,6 +189,7 @@ sdn = pd.concat(new_dfs, ignore_index=True)
 sdn.reset_index(drop=True)
 sdn.to_csv('data/global_confirmed_growth_rate.csv', index=False)
 
+print('Building Global growth rate choropleth...')
 fig = px.choropleth(
     sdn[(sdn.Date >= '2020-01-01') &
         (pd.to_datetime(sdn.Date) <= pd.to_datetime(sdn.Date.max()) - pd.Timedelta(days=1))],
@@ -222,6 +225,7 @@ us_true = df.location == 'United States'
 date = df.date >= '2020-03-01'
 us = df[us_true & date]
 
+print('Building Global bar and line charts...')
 import plotly.graph_objects as go
 from plotly.subplots import make_subplots
 fig = make_subplots(rows=3, cols=2, specs=[[{},{"rowspan": 2}],
