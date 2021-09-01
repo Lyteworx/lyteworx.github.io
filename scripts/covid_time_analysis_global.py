@@ -22,7 +22,8 @@ continent_map.update({'US': 'North America', 'UK': 'Europe',
                       'North Macedonia': 'Europe', 'Taiwan*': 'Asia',
                       'Laos': 'Asia', 'West Bank and Gaza': 'Asia',
                       'Kosovo': 'Europe', 'Burma': 'Asia',
-                      'MS Zaandam': 'North America'})
+                      'MS Zaandam': 'North America',
+                      'Summer Olympics 2020': 'Asia'})
 
 c = gl_c.groupby('Country/Region').sum().iloc[:, 2:].unstack().reset_index()
 
