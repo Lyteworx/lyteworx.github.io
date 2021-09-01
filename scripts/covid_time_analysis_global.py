@@ -44,6 +44,8 @@ def find_continent(country):
     for key, value in continent_map.items():
         if country in key:
             return value
+        else:
+            print(f'Continent not assigned for {country}.')
 
 
 df['Continent'] = df.Country.apply(find_continent)  # assign continent
@@ -162,6 +164,7 @@ def split_by_state(country, df):
     df = df[df.Country == country].copy()
     return df
 
+print('Calculating growth rate.')
 def calc_growth_rate(df):
     #calc growth rate
     df['today'] = df.Confirmed.diff().fillna(0)
