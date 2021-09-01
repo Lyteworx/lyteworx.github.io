@@ -19,6 +19,8 @@
 *.rar
 *.tar
 *.zip
+*.gzip
+*.geojson
 
 # Logs and databases #
 ######################
@@ -43,3 +45,6 @@ Thumbs.db
 ######################
 venv/
 .idea/
+charts/
+data/
+figures/
