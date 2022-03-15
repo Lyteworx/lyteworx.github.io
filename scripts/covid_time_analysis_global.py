@@ -10,7 +10,7 @@ gl_death_path = 'https://raw.githubusercontent.com/CSSEGISandData/COVID-19/maste
 gl_c = pd.read_csv(gl_confirmed_path)
 gl_d = pd.read_csv(gl_death_path)
 
-df_con = pd.read_csv('data/country-and-continent-codes-list.csv')
+df_con = pd.read_csv('../data/country-and-continent-codes-list.csv')
 continent_map = dict()
 for row in df_con.itertuples():
     continent_map[row.Country_Name] = row.Continent_Name
@@ -23,7 +23,8 @@ continent_map.update({'US': 'North America', 'UK': 'Europe',
                       'Laos': 'Asia', 'West Bank and Gaza': 'Asia',
                       'Kosovo': 'Europe', 'Burma': 'Asia',
                       'MS Zaandam': 'North America',
-                      'Summer Olympics 2020': 'Asia'})
+                      'Summer Olympics 2020': 'Asia',
+                      'Winter Olympics 2022': 'Asia'})
 
 c = gl_c.groupby('Country/Region').sum().iloc[:, 2:].unstack().reset_index()
 
@@ -44,8 +45,7 @@ def find_continent(country):
     for key, value in continent_map.items():
         if country in key:
             return value
-        else:
-            print(f'Continent not assigned for {country}.')
+    print(f'Continent not assigned for {country}.')
 
 
 df['Continent'] = df.Country.apply(find_continent)  # assign continent
